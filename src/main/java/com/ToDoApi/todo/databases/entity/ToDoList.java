@@ -1,13 +1,20 @@
 package com.ToDoApi.todo.databases.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.*;
 
-@Table(name = "kanghyuk")
+import javax.persistence.*;
+
+@Setter
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "todolist")
 @Entity
 public class ToDoList {
     @Id
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Setter
     private String contents;
 }
