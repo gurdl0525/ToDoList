@@ -15,6 +15,5 @@ public class ToDoList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Setter
     private String contents;
 }
