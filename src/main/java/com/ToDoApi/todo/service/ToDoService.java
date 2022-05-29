@@ -1,4 +1,4 @@
-package com.ToDoApi.Service;
+package com.ToDoApi.todo.service;
 
 import com.ToDoApi.todo.controller.dto.CreateToDoRequest;
 import com.ToDoApi.todo.controller.dto.MessageResponse;
@@ -16,6 +16,7 @@ import java.util.List;
 public class ToDoService {
     private final ToDoListRepository toDoListRepository;
 
+    @Transactional
     public MessageResponse createToDo(CreateToDoRequest request){
         toDoListRepository.save(ToDoList.builder()
                     .contents(request.getContents())

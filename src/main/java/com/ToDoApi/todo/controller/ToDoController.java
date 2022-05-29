@@ -1,6 +1,6 @@
 package com.ToDoApi.todo.controller;
 
-import com.ToDoApi.Service.ToDoService;
+import com.ToDoApi.todo.service.ToDoService;
 import com.ToDoApi.todo.controller.dto.CreateToDoRequest;
 import com.ToDoApi.todo.controller.dto.MessageResponse;
 import com.ToDoApi.todo.controller.dto.UpdateToDoRequest;
