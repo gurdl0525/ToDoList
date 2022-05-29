@@ -35,7 +35,7 @@ public class ToDoController {
     public List<ToDoList> readAllToDo(){
         return toDoService.getToDo();
     }
-    @GetMapping
+    @GetMapping("/{todo-id}")
     public ToDoList readToDo(@PathVariable("todo-id") Long id){
         return toDoService.getToDo(id);
     }
