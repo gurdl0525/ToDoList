@@ -1,4 +1,4 @@
-package com.ToDoApi.todo.controller.dto;
+package com.ToDoApi.todo.dto;
 
 import lombok.Builder;
 import lombok.Getter;
