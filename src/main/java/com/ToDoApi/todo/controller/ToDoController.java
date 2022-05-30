@@ -1,9 +1,9 @@
 package com.ToDoApi.todo.controller;
 
 import com.ToDoApi.todo.service.ToDoService;
-import com.ToDoApi.todo.controller.dto.CreateToDoRequest;
-import com.ToDoApi.todo.controller.dto.MessageResponse;
-import com.ToDoApi.todo.controller.dto.UpdateToDoRequest;
+import com.ToDoApi.todo.dto.CreateToDoRequest;
+import com.ToDoApi.todo.dto.MessageResponse;
+import com.ToDoApi.todo.dto.UpdateToDoRequest;
 import com.ToDoApi.todo.databases.entity.ToDoList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
