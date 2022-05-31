@@ -5,6 +5,8 @@ import com.ToDoApi.todo.dto.MessageResponse;
 import com.ToDoApi.todo.dto.UpdateToDoRequest;
 import com.ToDoApi.todo.databases.entity.ToDoList;
 import com.ToDoApi.todo.databases.entity.ToDoListRepository;
+import com.ToDoApi.todo.exception.BaseException;
+import com.ToDoApi.todo.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,22 +27,34 @@ public class ToDoService {
                     .contents(request.getContent())
                     .build());
         return MessageResponse.builder()
-                .message("ToDoList 생성이 완료되었습니다.")
+                .message("ToDoList" + "(" + request.getContent() +")" + "가 생성이 완료되었습니다.")
                 .build();
     }
     @Transactional
     public MessageResponse updateToDo(UpdateToDoRequest dto, Long id){
         ToDoList toDoList = toDoListRepository.findById(id)
-                        .orElseThrow(() -> new NoSuchElementException(id + "번 아이디는 없는 아이디 입니다."));
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
         toDoList.setContents(dto.getContent());
         return MessageResponse.builder()
-                .message(id + "번 아이디 ToDo 수정되었습니다.")
+                .message(id + "번 아이디 TodoList가 수정되었습니다.")
                 .build();
     }
     @Transactional
     public MessageResponse deleteToDo(Long id){
-        toDoListRepository.deleteById(id);
+        try {
+            toDoListRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new BaseException(ErrorCode.NOT_FOUND);
+        }
         return MessageResponse.builder()
+                .message(id + "번 아이디 TodoList가 삭제되었습니다.")
+                .build();
+    }
+    @Transactional
+    public MessageResponse deleteAll(){
+        toDoListRepository.deleteAll();
+        return MessageResponse.builder()
+                .message("모든 TodoList가 삭제 되었습니다.")
                 .build();
     }
     public List<ToDoList> getToDo(){
@@ -48,12 +62,7 @@ public class ToDoService {
     }
     public ToDoList getToDo(Long id){
         return toDoListRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException(id + "번 아이디는 없는 아이디 입니다."));
-    }
-    private void noneIdChecker(Long id){
-        toDoListRepository.findById(toDoList.getId())
-                .ifPresent(toDoList1 -> {
-                    throw new IllegalStateException("예외처리");
-                });
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
+//                .orElseThrow(() -> new NoSuchElementException(id + "번 아이디는 없는 아이디 입니다."));
     }
 }
