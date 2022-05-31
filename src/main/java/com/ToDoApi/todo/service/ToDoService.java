@@ -18,15 +18,13 @@ import java.util.List;
 public class ToDoService {
     private final ToDoListRepository toDoListRepository;
 
-    private ToDoList toDoList = new ToDoList();
-
     @Transactional
     public MessageResponse createToDo(CreateToDoRequest request){
         toDoListRepository.save(ToDoList.builder()
                     .contents(request.getContent())
                     .build());
         return MessageResponse.builder()
-                .message("ToDoList" + "(" + request.getContent() +")" + "가 생성이 완료되었습니다.")
+                .message("["+"ToDoList:" + request.getContent() +"]" + "가 생성이 완료되었습니다.")
                 .build();
     }
     @Transactional
