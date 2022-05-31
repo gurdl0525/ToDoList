@@ -31,6 +31,10 @@ public class ToDoController {
     public MessageResponse deleteToDo(@PathVariable("todo-id") Long id){
         return toDoService.deleteToDo(id);
     }
+    @DeleteMapping("/all")
+    public MessageResponse deleteAll(){
+        return toDoService.deleteAll();
+    }
     @GetMapping
     public List<ToDoList> readAllToDo(){
         return toDoService.getToDo();
