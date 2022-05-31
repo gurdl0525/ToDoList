@@ -1,4 +1,4 @@
-package com.ToDoApi.todo.databases.entity;
+package com.ToDoApi.todo.entity;
 
 import lombok.*;
 

@@ -3,8 +3,8 @@ package com.ToDoApi.todo.service;
 import com.ToDoApi.todo.dto.CreateToDoRequest;
 import com.ToDoApi.todo.dto.MessageResponse;
 import com.ToDoApi.todo.dto.UpdateToDoRequest;
-import com.ToDoApi.todo.databases.entity.ToDoList;
-import com.ToDoApi.todo.databases.entity.ToDoListRepository;
+import com.ToDoApi.todo.entity.ToDoList;
+import com.ToDoApi.todo.repository.ToDoListRepository;
 import com.ToDoApi.todo.exception.BaseException;
 import com.ToDoApi.todo.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor

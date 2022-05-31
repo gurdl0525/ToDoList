@@ -4,7 +4,7 @@ import com.ToDoApi.todo.service.ToDoService;
 import com.ToDoApi.todo.dto.CreateToDoRequest;
 import com.ToDoApi.todo.dto.MessageResponse;
 import com.ToDoApi.todo.dto.UpdateToDoRequest;
-import com.ToDoApi.todo.databases.entity.ToDoList;
+import com.ToDoApi.todo.entity.ToDoList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

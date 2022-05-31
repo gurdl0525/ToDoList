@@ -1,5 +1,6 @@
-package com.ToDoApi.todo.databases.entity;
+package com.ToDoApi.todo.repository;
 
+import com.ToDoApi.todo.entity.ToDoList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
