@@ -35,4 +35,10 @@ public class ExceptionController {
         return ResponseEntity.status(errorCode.getStatus())
                 .body(errorCode.getMessage());
     }
+    @ExceptionHandler(value = IllegalStateException.class)
+    public ResponseEntity duplicateMember() {
+        ErrorCode errorCode = ErrorCode.ILLEGAL_STATE_EXCEPTION;
+        return ResponseEntity.status(errorCode.getStatus())
+                .body(errorCode.getMessage());
+    }
 }
