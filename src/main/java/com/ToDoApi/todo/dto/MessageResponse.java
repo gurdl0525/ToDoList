@@ -1,7 +1,6 @@
 package com.ToDoApi.todo.dto;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Builder
 @Getter
