@@ -19,17 +19,17 @@ public class ToDoService {
     @Transactional
     public MessageResponse createToDo(CreateToDoRequest request){
         toDoListRepository.save(ToDoList.builder()
-                    .contents(request.getContent())
+                    .contents(request.getContents())
                     .build());
         return MessageResponse.builder()
-                .message("["+"ToDoList:" + request.getContent() +"]" + "가 생성이 완료되었습니다.")
+                .message("["+"ToDoList:" + request.getContents() +"]" + "가 생성이 완료되었습니다.")
                 .build();
     }
     @Transactional
     public MessageResponse updateToDo(UpdateToDoRequest dto, Long id){
         ToDoList toDoList = toDoListRepository.findById(id)
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
-        toDoList.setContents(dto.getContent());
+        toDoList.setContents(dto.getContents());
         return MessageResponse.builder()
                 .message(id + "번 아이디 TodoList가 수정되었습니다.")
                 .build();
