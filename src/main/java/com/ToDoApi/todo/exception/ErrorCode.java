@@ -1,9 +1,6 @@
 package com.ToDoApi.todo.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.util.NoSuchElementException;
 
 @Getter
 public enum ErrorCode {
