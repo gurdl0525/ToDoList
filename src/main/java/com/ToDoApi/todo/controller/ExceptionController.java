@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 @ControllerAdvice
 public class ExceptionController {
 
@@ -38,6 +40,12 @@ public class ExceptionController {
     @ExceptionHandler(value = IllegalStateException.class)
     public ResponseEntity duplicateMember() {
         ErrorCode errorCode = ErrorCode.ILLEGAL_STATE_EXCEPTION;
+        return ResponseEntity.status(errorCode.getStatus())
+                .body(errorCode.getMessage());
+    }
+    @ExceptionHandler(value = SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity badRequestType() {
+        ErrorCode errorCode = ErrorCode.SQL_INTEGRITY_CONSTRAINT_VIOLATION_EXCEPTION;
         return ResponseEntity.status(errorCode.getStatus())
                 .body(errorCode.getMessage());
     }
