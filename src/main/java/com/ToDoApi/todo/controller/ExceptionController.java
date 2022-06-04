@@ -2,6 +2,7 @@ package com.ToDoApi.todo.controller;
 
 import com.ToDoApi.todo.exception.BaseException;
 import com.ToDoApi.todo.exception.ErrorCode;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -46,6 +47,12 @@ public class ExceptionController {
     @ExceptionHandler(value = SQLIntegrityConstraintViolationException.class)
     public ResponseEntity badRequestType() {
         ErrorCode errorCode = ErrorCode.SQL_INTEGRITY_CONSTRAINT_VIOLATION_EXCEPTION;
+        return ResponseEntity.status(errorCode.getStatus())
+                .body(errorCode.getMessage());
+    }
+    @ExceptionHandler(value = EmptyResultDataAccessException.class)
+    public ResponseEntity badRequestNullPointId(){
+        ErrorCode errorCode = ErrorCode.EMPTY_RESULT_DATA_ACCESS_EXCEPTION;
         return ResponseEntity.status(errorCode.getStatus())
                 .body(errorCode.getMessage());
     }
