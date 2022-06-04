@@ -24,4 +24,12 @@ public class MemberController {
     public List<String> findAll(){
         return memberService.findAll();
     }
+    @DeleteMapping("/delete/{id}")
+    public MessageResponse deleteById(@PathVariable("id") Long id){
+        return memberService.deleteById(id);
+    }
+    @DeleteMapping("/delete")
+    public MessageResponse deleteAll(){
+        return memberService.deleteAll();
+    }
 }
