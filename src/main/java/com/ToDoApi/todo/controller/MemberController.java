@@ -24,6 +24,10 @@ public class MemberController {
     public List<String> findAll(){
         return memberService.findAll();
     }
+    @GetMapping("/login")
+    public MessageResponse findPassword(@RequestBody MemberRequest memberRequest) {
+        return memberService.login(memberRequest);
+    }
     @DeleteMapping("/delete/{id}")
     public MessageResponse deleteById(@PathVariable("id") Long id){
         return memberService.deleteById(id);
