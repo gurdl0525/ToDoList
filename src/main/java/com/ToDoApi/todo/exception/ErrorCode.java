@@ -10,8 +10,8 @@ public enum ErrorCode {
     HTTP_MEDIA_TYPE_NOT_SUPPORTED_EXCEPTION(415, "BAD_REQUEST : 잘못된 입력 타입입니다."),
     ILLEGAL_STATE_EXCEPTION(400,"BAD_REQUEST : 중복된 아이디 입니다."),
     SQL_INTEGRITY_CONSTRAINT_VIOLATION_EXCEPTION(400, "BAD_REQUEST : 잘못된 객체 이름입니다."),
-    EMPTY_RESULT_DATA_ACCESS_EXCEPTION(400, "NOT_FOUND : 없는 아이디 입니다.");
-
+    EMPTY_RESULT_DATA_ACCESS_EXCEPTION(400, "NOT_FOUND : 없는 아이디 입니다."),
+    UN_AUTHORIZED_TOKEN_EXCEPTION(401, "인증되지 않은 토큰입니다.");
     private final Integer status;
     private final String message;
 
