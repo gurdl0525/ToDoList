@@ -34,7 +34,7 @@ public class ExceptionController {
     }
     @ExceptionHandler(value = HttpMessageNotReadableException.class)
     public ResponseEntity badRequest(){
-        ErrorCode errorCode = ErrorCode.HTTP_MESSAGE_NOT_READABLE_EXCEPTION;
+        ErrorCode errorCode = ErrorCode.BAD_REQUEST;
         return ResponseEntity.status(errorCode.getStatus())
                 .body(errorCode.getMessage());
     }
