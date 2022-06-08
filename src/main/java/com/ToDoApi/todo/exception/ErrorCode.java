@@ -11,7 +11,8 @@ public enum ErrorCode {
     ILLEGAL_STATE_EXCEPTION(400,"BAD_REQUEST : 중복된 아이디 입니다."),
     SQL_INTEGRITY_CONSTRAINT_VIOLATION_EXCEPTION(400, "BAD_REQUEST : 잘못된 객체 이름입니다."),
     EMPTY_RESULT_DATA_ACCESS_EXCEPTION(400, "NOT_FOUND : 없는 아이디 입니다."),
-    UN_AUTHORIZED_TOKEN_EXCEPTION(401, "인증되지 않은 토큰입니다.");
+    UN_AUTHORIZED_TOKEN_EXCEPTION(401, "인증되지 않은 토큰입니다."),
+    INTERNAL_SERVER_ERROR(500, "INTERNAL_SERVER_ERROR");
     private final Integer status;
     private final String message;
 
