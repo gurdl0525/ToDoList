@@ -6,11 +6,11 @@ import com.ToDoApi.todo.entity.Member;;
 import com.ToDoApi.todo.exception.BaseException;
 import com.ToDoApi.todo.exception.ErrorCode;
 import com.ToDoApi.todo.repository.MemberRepository;
+import com.ToDoApi.todo.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.LoginException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,8 +18,9 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class MemberService {
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final MemberRepository memberRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
     public MessageResponse join(MemberRequest request){
@@ -38,7 +39,7 @@ public class MemberService {
         try{
             if(passwordEncoder.matches(memberRequest.getMemberPsw(), findByPassword(memberRequest.getMemberId()))){
                 return MessageResponse.builder()
-                        .message(memberRequest.getMemberId() + "님 로그인 되었습니다.")
+                        .message(jwtTokenProvider.generateAccessToken(memberRequest.getMemberId()))
                         .build();
             }
         }catch (Exception e){
@@ -50,14 +51,13 @@ public class MemberService {
     }
     private String findByPassword(String memberId){
         return memberRepository.findByMemberId(memberId).stream()
-                .map(member -> member.getPassword())
+                .map(Member::getPassword)
                 .collect(Collectors.joining());
     }
-
     @Transactional
     public List<String> findAll() {
         return memberRepository.findAll().stream()
-                .map(member -> member.getMemberId())
+                .map(Member::getMemberId)
                 .collect(Collectors.toList());
     }
     private void duplicateMemberCheck(String memberId){
