@@ -22,7 +22,7 @@ public class ToDoService {
                     .contents(request.getContents())
                     .build());
         return MessageResponse.builder()
-                .message("["+"ToDoList:" + request.getContents() +"]" + "가 생성이 완료되었습니다.")
+                .message("[ "+"ToDoList : " + request.getContents() +" ]" + "가 생성이 완료되었습니다.")
                 .build();
     }
     @Transactional
@@ -31,8 +31,25 @@ public class ToDoService {
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
         toDoList.setContents(dto.getContents());
         return MessageResponse.builder()
-                .message(id + "번 아이디 TodoList가 수정되었습니다.")
+                .message(id + "번 TodoList를 수정할까요?")
                 .build();
+    }
+    @Transactional
+    public MessageResponse success(SuccessBoolean dto, Long id){
+        if(dto.getABoolean()){
+            return MessageResponse.builder()
+                    .message(id + "번 TodoList 수정 완료")
+                    .build();
+        } else {
+            try {
+                toDoListRepository.deleteById(id);
+            } catch (Exception e) {
+                throw new BaseException(ErrorCode.NOT_FOUND);
+            }
+            return MessageResponse.builder()
+                    .message(id + "번 TodoList가 수정이 취소되었습니다.")
+                    .build();
+        }
     }
     @Transactional
     public MessageResponse deleteToDo(Long id){
@@ -42,7 +59,7 @@ public class ToDoService {
             throw new BaseException(ErrorCode.NOT_FOUND);
         }
         return MessageResponse.builder()
-                .message(id + "번 아이디 TodoList가 삭제되었습니다.")
+                .message(id + "번 TodoList가 삭제되었습니다.")
                 .build();
     }
     @Transactional
@@ -58,6 +75,5 @@ public class ToDoService {
     public ToDoList getToDo(Long id){
         return toDoListRepository.findById(id)
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
-//                .orElseThrow(() -> new NoSuchElementException(id + "번 아이디는 없는 아이디 입니다."));
     }
 }
