@@ -25,6 +25,10 @@ public class ToDoController {
     public MessageResponse updateToDo(@RequestBody UpdateToDoRequest dto, @PathVariable("todo-id") Long id) {
         return toDoService.updateToDo(dto, id);
     }
+    @PatchMapping ("/{todo-id}")
+    public MessageResponse success(@RequestBody SuccessBoolean dto, @PathVariable("todo-id") Long id) {
+        return toDoService.success(dto, id);
+    }
     @DeleteMapping("/{todo-id}")
     public MessageResponse deleteToDo(@PathVariable("todo-id") Long id) {
         return toDoService.deleteToDo(id);
