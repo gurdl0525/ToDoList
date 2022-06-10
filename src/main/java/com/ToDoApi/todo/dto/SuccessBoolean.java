@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SuccessBoolean {
-    private String contents;
-    private Boolean aBoolean;
+    private Boolean is_success;
 }
