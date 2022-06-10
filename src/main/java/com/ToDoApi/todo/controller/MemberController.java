@@ -2,6 +2,7 @@ package com.ToDoApi.todo.controller;
 
 import com.ToDoApi.todo.dto.MemberRequest;
 import com.ToDoApi.todo.dto.MessageResponse;
+import com.ToDoApi.todo.dto.TokenResponse;
 import com.ToDoApi.todo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,14 +26,14 @@ public class MemberController {
         return memberService.findAll();
     }
     @PostMapping("/login")
-    public MessageResponse login(@RequestBody MemberRequest memberRequest) {
+    public TokenResponse login(@RequestBody MemberRequest memberRequest) {
         return memberService.login(memberRequest);
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public MessageResponse deleteById(@PathVariable("id") Long id){
         return memberService.deleteById(id);
     }
-    @DeleteMapping("/delete")
+    @DeleteMapping("/all")
     public MessageResponse deleteAll(){
         return memberService.deleteAll();
     }
