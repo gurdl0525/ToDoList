@@ -2,6 +2,7 @@ package com.ToDoApi.todo.service;
 
 import com.ToDoApi.todo.dto.MemberRequest;
 import com.ToDoApi.todo.dto.MessageResponse;
+import com.ToDoApi.todo.dto.TokenResponse;
 import com.ToDoApi.todo.entity.Member;;
 import com.ToDoApi.todo.exception.BaseException;
 import com.ToDoApi.todo.exception.ErrorCode;
@@ -24,46 +25,46 @@ public class MemberService {
 
     @Transactional
     public MessageResponse join(MemberRequest request){
-        duplicateMemberCheck(request.getMemberId());
-        Member member = Member.builder()
-                .memberId(request.getMemberId())
-                .password(passwordEncoder.encode(request.getMemberPsw()))
-                .build();
-        memberRepository.save(member);
-        return MessageResponse.builder()
-                .message(member.getMemberId() + "님이 정상적으로 회원가입 완료되었습니다.")
-                .build();
+        if(request.getAccountId() != null){
+            duplicateMemberCheck(request.getAccountId());
+            Member member = Member.builder()
+                    .accountId(request.getAccountId())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .build();
+            memberRepository.save(member);
+            return MessageResponse.builder()
+                    .message(member.getAccountId() + "님이 정상적으로 회원가입 완료되었습니다.")
+                    .build();
+        } else {
+            return MessageResponse.builder()
+                    .message("아이디를 입력해주세요.")
+                    .build();
+        }
     }
     @Transactional
-    public MessageResponse login(MemberRequest memberRequest){
-        try{
-            if(passwordEncoder.matches(memberRequest.getMemberPsw(), findByPassword(memberRequest.getMemberId()))){
-                return MessageResponse.builder()
-                        .message(jwtTokenProvider.generateAccessToken(memberRequest.getMemberId()))
-                        .build();
-            }
-        }catch (Exception e){
-            throw  new BaseException(ErrorCode.BAD_REQUEST);
+    public TokenResponse login(MemberRequest memberRequest){
+        if(passwordEncoder.matches(memberRequest.getPassword(), findByPassword(memberRequest.getAccountId()))){
+            return TokenResponse.builder()
+                    .accessToken(jwtTokenProvider.generateAccessToken(memberRequest.getAccountId()))
+                    .build();
         }
-        return MessageResponse.builder()
-                .message("잘못된 아이디 또는 비밀번호 입니다.")
-                .build();
+        throw new BaseException(ErrorCode.PASSWORD_NOT_MATCHED);
     }
-    private String findByPassword(String memberId){
-        return memberRepository.findByMemberId(memberId).stream()
+    private String findByPassword(String accountId){
+        return memberRepository.findByAccountId(accountId).stream()
                 .map(Member::getPassword)
                 .collect(Collectors.joining());
     }
     @Transactional
     public List<String> findAll() {
         return memberRepository.findAll().stream()
-                .map(Member::getMemberId)
+                .map(Member::getAccountId)
                 .collect(Collectors.toList());
     }
-    private void duplicateMemberCheck(String memberId){
-        memberRepository.findByMemberId(memberId)
+    private void duplicateMemberCheck(String accountId){
+        memberRepository.findByAccountId(accountId)
                 .ifPresent(m -> {
-                    throw new IllegalStateException("이미 존재하는 회원입니다.");
+                    throw new IllegalStateException();
                 });
     }
     @Transactional
