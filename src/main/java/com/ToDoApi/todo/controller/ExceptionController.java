@@ -52,7 +52,7 @@ public class ExceptionController {
     }
     @ExceptionHandler(value = EmptyResultDataAccessException.class)
     public ResponseEntity badRequestNullPointId(){
-        ErrorCode errorCode = ErrorCode.EMPTY_RESULT_DATA_ACCESS_EXCEPTION;
+        ErrorCode errorCode = ErrorCode.NOT_FOUND;
         return ResponseEntity.status(errorCode.getStatus())
                 .body(errorCode.getMessage());
     }
