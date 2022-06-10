@@ -15,9 +15,9 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Long id;
+    private Long id;
     @Column(name = "member_id")
-    String memberId;
+    private String accountId;
     @Column(name = "member_password")
-    String password;
+    private String password;
 }
