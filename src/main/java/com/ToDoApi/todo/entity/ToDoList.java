@@ -16,4 +16,6 @@ public class ToDoList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String contents;
+    @Column(name = "is_success") //, columnDefinition = "tinyint(1) default 0")
+    private Boolean is_success;
 }
