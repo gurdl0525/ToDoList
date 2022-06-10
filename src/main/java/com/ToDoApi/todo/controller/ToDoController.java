@@ -14,18 +14,16 @@ import java.util.List;
 @RequestMapping("/todo")
 public class ToDoController {
     private final ToDoService toDoService;
-
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public MessageResponse createToDo(@RequestBody CreateToDoRequest dto) {
         return toDoService.createToDo(dto);
     }
-
     @PutMapping("/{todo-id}")
     public MessageResponse updateToDo(@RequestBody UpdateToDoRequest dto, @PathVariable("todo-id") Long id) {
         return toDoService.updateToDo(dto, id);
     }
-    @PatchMapping ("/{todo-id}")
+    @PatchMapping ("/success/{todo-id}")
     public MessageResponse success(@RequestBody SuccessBoolean dto, @PathVariable("todo-id") Long id) {
         return toDoService.success(dto, id);
     }
