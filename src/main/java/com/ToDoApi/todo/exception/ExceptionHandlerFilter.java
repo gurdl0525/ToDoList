@@ -24,17 +24,18 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } catch (UnAuthorizedTokenException e){
             log.error("exception exception handler filter");
-            setErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, response, e);
+            setErrorResponse(ErrorCode.UN_AUTHORIZED_TOKEN_EXCEPTION, response, e);
         } catch (RuntimeException e){
             log.error("runtime exception exception handler filter");
-            setErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, response, e);
+            setErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, response, e);
         }
+        // 필터에서 생기는 오류를 잡아주는 필터
     }
 
-    public void setErrorResponse(HttpStatus status, HttpServletResponse response, Throwable e){
-        response.setStatus(status.value());
+    public void setErrorResponse(ErrorCode errorCode, HttpServletResponse response, Throwable e){
+        response.setStatus(errorCode.getStatus());
         response.setContentType("application/json");
-        ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(errorCode.getMessage());
         errorResponse.setMessage(e.getMessage());
         try{
             String json = errorResponse.convertObjectToJson();
