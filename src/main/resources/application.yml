@@ -1,4 +1,7 @@
 spring:
+#  jackson:
+#    property-naming-strategy: SNAKE_CASE
+#    json 형식의 객체필드를 자동으로 snake case로 바꾸어준다.
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DBurl}
