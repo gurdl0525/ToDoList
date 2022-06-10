@@ -20,9 +20,10 @@ public class ToDoService {
     public MessageResponse createToDo(CreateToDoRequest request){
         toDoListRepository.save(ToDoList.builder()
                     .contents(request.getContents())
+                    .is_success(false)
                     .build());
         return MessageResponse.builder()
-                .message("[ "+"ToDoList : " + request.getContents() +" ]" + "가 생성이 완료되었습니다.")
+                .message("["+"ToDoList:" + request.getContents() +"]" + "가 생성이 완료되었습니다.")
                 .build();
     }
     @Transactional
@@ -31,25 +32,17 @@ public class ToDoService {
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
         toDoList.setContents(dto.getContents());
         return MessageResponse.builder()
-                .message(id + "번 TodoList를 수정할까요?")
+                .message(id + "번 TodoList를 수정했습니다.")
                 .build();
     }
     @Transactional
     public MessageResponse success(SuccessBoolean dto, Long id){
-        if(dto.getABoolean()){
-            return MessageResponse.builder()
-                    .message(id + "번 TodoList 수정 완료")
-                    .build();
-        } else {
-            try {
-                toDoListRepository.deleteById(id);
-            } catch (Exception e) {
-                throw new BaseException(ErrorCode.NOT_FOUND);
-            }
-            return MessageResponse.builder()
-                    .message(id + "번 TodoList가 수정이 취소되었습니다.")
-                    .build();
-        }
+        ToDoList toDoList = toDoListRepository.findById(id)
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
+        toDoList.setIs_success(dto.getIs_success());
+        return MessageResponse.builder()
+                .message(id + "번 아이디의 투두의 완료여부가 " + dto.getIs_success() + "로 변경되었습니다.")
+                .build();
     }
     @Transactional
     public MessageResponse deleteToDo(Long id){
