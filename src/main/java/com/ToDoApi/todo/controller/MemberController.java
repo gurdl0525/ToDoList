@@ -29,10 +29,10 @@ public class MemberController {
     public TokenResponse login(@RequestBody MemberRequest memberRequest) {
         return memberService.login(memberRequest);
     }
-    @DeleteMapping("/{id}")
-    public MessageResponse deleteById(@PathVariable("id") Long id){
-        return memberService.deleteById(id);
-    }
+//    @DeleteMapping("/withdrawal")
+//    public MessageResponse deleteById(@RequestBody MemberRequest memberRequest){
+//        return memberService.deleteById(memberRequest);
+//    }
     @DeleteMapping("/all")
     public MessageResponse deleteAll(){
         return memberService.deleteAll();
