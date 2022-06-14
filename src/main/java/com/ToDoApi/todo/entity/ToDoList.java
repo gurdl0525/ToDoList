@@ -18,4 +18,7 @@ public class ToDoList {
     private String contents;
     @Column(name = "is_success") //, columnDefinition = "tinyint(1) default 0")
     private Boolean is_success;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 }
