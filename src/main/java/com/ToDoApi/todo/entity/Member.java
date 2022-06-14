@@ -3,6 +3,7 @@ package com.ToDoApi.todo.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -20,4 +21,6 @@ public class Member {
     private String accountId;
     @Column(name = "member_password")
     private String password;
+    @OneToMany(mappedBy = "member")
+    private List<ToDoList> toDoLists;
 }
