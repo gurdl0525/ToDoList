@@ -74,14 +74,15 @@ public class MemberService {
                 .message("모든 회원이 삭제 되었습니다.")
                 .build();
     }
-//    @Transactional
-//    public MessageResponse deleteById(MemberRequest memberRequest){
-//        if(passwordEncoder.matches(memberRequest.getPassword(), findByPassword(memberRequest.getAccountId()))){
-//            memberRepository.deleteById(memberRepository.findById(memberRequest));
-//            return MessageResponse.builder()
-//                    .message("회원님이 정상적으로 탈퇴되었습니다.")
-//                    .build();
-//        }
-//        throw new BaseException(ErrorCode.PASSWORD_NOT_MATCHED);
-//    }
+    @Transactional
+    public MessageResponse deleteById(MemberRequest memberRequest){
+        if(passwordEncoder.matches(memberRequest.getPassword(), findByPassword(memberRequest.getAccountId()))){
+            Member member = memberRepository.findByAccountId(memberRequest.getAccountId()).orElseThrow();
+            memberRepository.deleteById(member.getId());
+            return MessageResponse.builder()
+                    .message("회원님이 정상적으로 탈퇴되었습니다.")
+                    .build();
+        }
+        throw new BaseException(ErrorCode.PASSWORD_NOT_MATCHED);
+    }
 }
