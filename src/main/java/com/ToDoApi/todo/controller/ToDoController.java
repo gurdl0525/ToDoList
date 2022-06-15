@@ -23,24 +23,16 @@ public class ToDoController {
     public MessageResponse updateToDo(@RequestBody UpdateToDoRequest dto, @PathVariable("todo-id") Long id) {
         return toDoService.updateToDo(dto, id);
     }
-    @PatchMapping ("/success/{todo-id}")
-    public MessageResponse success(@RequestBody SuccessBoolean dto, @PathVariable("todo-id") Long id) {
-        return toDoService.success(dto, id);
-    }
     @DeleteMapping("/{todo-id}")
     public MessageResponse deleteToDo(@PathVariable("todo-id") Long id) {
         return toDoService.deleteToDo(id);
     }
-    @DeleteMapping("/all")
-    public MessageResponse deleteAll() {
-        return toDoService.deleteAll();
-    }
     @GetMapping
-    public List<ToDoList> readAllToDo() {
+    public List<ToDoListResponse> readAllToDo() {
         return toDoService.getToDo();
     }
     @GetMapping("/{todo-id}")
-    public ToDoList readToDo(@PathVariable("todo-id") Long id){
+    public ToDoListResponse readToDo(@PathVariable("todo-id") Long id){
         return toDoService.getToDo(id);
     }
 }
