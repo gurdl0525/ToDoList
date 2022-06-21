@@ -31,7 +31,6 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
         }
         // 필터에서 생기는 오류를 잡아주는 필터
     }
-
     public void setErrorResponse(ErrorCode errorCode, HttpServletResponse response, Throwable e){
         response.setStatus(errorCode.getStatus());
         response.setContentType("application/json");
